@@ -123,10 +123,8 @@ const Index = () => {
                 Showing {earthquakes.length} earthquakes from the past 24 hours
               </CardDescription>
             </CardHeader>
-            <CardContent className="p-0">
-              <div className="h-[600px] w-full">
-                <EarthquakeMap earthquakes={earthquakes} />
-              </div>
+            <CardContent className="p-0 h-[600px]">
+              <EarthquakeMap earthquakes={earthquakes} />
             </CardContent>
           </Card>
         )}
