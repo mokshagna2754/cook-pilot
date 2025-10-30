@@ -275,7 +275,7 @@ const Index = () => {
   // Presets removed with Smart Filters
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 dark:from-gray-900 dark:via-gray-900 dark:to-black">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-yellow-50 dark:from-gray-900 dark:via-gray-900 dark:to-black text-gray-900 dark:text-white">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Header */}
         <header className="text-center mb-12 relative">
