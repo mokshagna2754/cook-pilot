@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -293,6 +293,8 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
       <DialogContent className={`max-w-6xl max-h-[95vh] overflow-hidden p-0 ${isDark ? 'dark bg-gray-900' : 'bg-white'}`}>
+        <DialogTitle className="sr-only">Cooking Mode</DialogTitle>
+        <DialogDescription className="sr-only">Guided cooking steps, timers, and notes</DialogDescription>
         <div className={`flex flex-col h-[95vh] ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
           {/* Header */}
           <div className={`flex items-center justify-between p-4 border-b ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
@@ -307,7 +309,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
               >
                 <ArrowLeft className={`h-5 w-5 ${isDark ? 'text-gray-100' : 'text-gray-700'}`} />
               </Button>
-              <ChefHat className={`h-6 w-6 ${darkMode ? 'text-orange-400' : 'text-orange-500'}`} />
+              <ChefHat className={`h-6 w-6 ${isDark ? 'text-orange-400' : 'text-orange-500'}`} />
               <div>
                 <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-800'}`}>
                   {recipe.strMeal}
@@ -516,7 +518,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
 
                       {/* Notes */}
                       <div className="space-y-2">
-                        <label className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                        <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                           <FileText className="h-4 w-4 inline mr-2" />
                           Your Notes:
                         </label>
