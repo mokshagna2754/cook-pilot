@@ -61,7 +61,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({ mealId, isOpen, onClose }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900">
         {loading && (
           <div className="flex items-center justify-center h-64">
             <Loader2 className="h-12 w-12 animate-spin text-orange-500" />
@@ -90,12 +90,12 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({ mealId, isOpen, onClose }
                     <ArrowLeft className="h-5 w-5 text-gray-700 dark:text-gray-100" />
                   </Button>
                   <div className="flex-1">
-                    <DialogTitle className="text-3xl mb-3 text-gray-800">{recipe.strMeal}</DialogTitle>
+                    <DialogTitle className="text-3xl mb-3 text-gray-800 dark:text-gray-100">{recipe.strMeal}</DialogTitle>
                     <DialogDescription className="flex items-center gap-4 text-base">
                       <Badge variant="secondary" className="bg-orange-100 text-orange-800">
                         {recipe.strCategory}
                       </Badge>
-                      <span className="flex items-center gap-1 text-gray-600">
+                      <span className="flex items-center gap-1 text-gray-600 dark:text-gray-300">
                         <MapPin className="h-4 w-4" />
                         {recipe.strArea}
                       </span>
@@ -108,7 +108,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({ mealId, isOpen, onClose }
 
             <div className="space-y-6 mt-6">
               {/* Recipe Image */}
-              <div className="relative h-80 rounded-lg overflow-hidden bg-gray-100 shadow-md">
+              <div className="relative h-80 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shadow-md">
                 <img
                   src={recipe.strMealThumb}
                   alt={recipe.strMeal}
@@ -120,8 +120,8 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({ mealId, isOpen, onClose }
               </div>
 
               {/* Ingredients */}
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-gray-800">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+                <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-gray-800 dark:text-gray-100">
                   <Utensils className="h-6 w-6 text-orange-500" />
                   Ingredients
                 </h3>
@@ -129,13 +129,13 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({ mealId, isOpen, onClose }
                   {ingredients.map((item, index) => (
                     <div
                       key={index}
-                      className="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm"
+                      className="flex items-start gap-3 p-3 bg-white dark:bg-gray-700 rounded-lg shadow-sm"
                     >
                       <div className="w-2 h-2 rounded-full bg-orange-500 mt-2 flex-shrink-0" />
                       <div className="flex-1">
-                        <strong className="text-gray-800">{item.ingredient}</strong>
+                        <strong className="text-gray-800 dark:text-gray-100">{item.ingredient}</strong>
                         {item.measure && (
-                          <span className="text-gray-600 ml-2">- {item.measure}</span>
+                          <span className="text-gray-600 dark:text-gray-300 ml-2">- {item.measure}</span>
                         )}
                       </div>
                     </div>
@@ -145,23 +145,23 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({ mealId, isOpen, onClose }
 
               {/* Instructions */}
               <div>
-                <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-gray-800">
+                <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-gray-800 dark:text-gray-100">
                   <Clock className="h-6 w-6 text-orange-500" />
                   Instructions
                 </h3>
                 <div className="space-y-4">
                   {instructions.length > 0 ? (
                     instructions.map((instruction, index) => (
-                      <div key={index} className="flex gap-4 bg-white p-4 rounded-lg shadow-sm border-l-4 border-orange-500">
+                      <div key={index} className="flex gap-4 bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm border-l-4 border-orange-500">
                         <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-lg">
                           {index + 1}
                         </div>
-                        <p className="flex-1 text-gray-700 leading-relaxed pt-1">{instruction.trim()}</p>
+                        <p className="flex-1 text-gray-700 dark:text-gray-200 leading-relaxed pt-1">{instruction.trim()}</p>
                       </div>
                     ))
                   ) : (
-                    <div className="bg-gray-50 p-6 rounded-lg">
-                      <p className="text-gray-600 whitespace-pre-line">{recipe.strInstructions}</p>
+                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                      <p className="text-gray-600 dark:text-gray-300 whitespace-pre-line">{recipe.strInstructions}</p>
                     </div>
                   )}
                 </div>
@@ -170,10 +170,10 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({ mealId, isOpen, onClose }
               {/* Tags */}
               {recipe.strTags && (
                 <div className="pt-4 border-t">
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">Tags</h3>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-100">Tags</h3>
                   <div className="flex flex-wrap gap-2">
                     {recipe.strTags.split(',').map((tag, index) => (
-                      <Badge key={index} variant="outline" className="bg-gray-50">
+                      <Badge key={index} variant="outline" className="bg-gray-50 dark:bg-gray-700 dark:text-gray-100">
                         {tag.trim()}
                       </Badge>
                     ))}
@@ -199,7 +199,7 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({ mealId, isOpen, onClose }
                   <Button
                     asChild
                     variant="outline"
-                    className="w-full h-12 text-lg border-2 hover:bg-gray-50"
+                    className="w-full h-12 text-lg border-2 hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
                     <a
                       href={recipe.strYoutube}

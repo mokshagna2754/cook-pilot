@@ -42,11 +42,11 @@ const FavoritesView: React.FC<FavoritesViewProps> = ({ onViewDetails }) => {
 
   if (favorites.length === 0) {
     return (
-      <Card className="border-0 shadow-lg bg-white/90">
+      <Card className="border-0 shadow-lg bg-white/90 dark:bg-gray-900/80">
         <CardContent className="flex flex-col items-center justify-center h-96 text-center space-y-4">
-          <Heart className="h-20 w-20 text-gray-300" />
-          <h3 className="text-2xl font-semibold text-gray-700">No Favorites Yet</h3>
-          <p className="text-gray-500 max-w-md">
+          <Heart className="h-20 w-20 text-gray-300 dark:text-gray-500" />
+          <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">No Favorites Yet</h3>
+          <p className="text-gray-500 dark:text-gray-400 max-w-md">
             Start exploring recipes and click the heart icon to save your favorites!
           </p>
         </CardContent>
@@ -57,7 +57,7 @@ const FavoritesView: React.FC<FavoritesViewProps> = ({ onViewDetails }) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
           <Heart className="h-7 w-7 text-red-500 fill-red-500" />
           My Favorites ({favorites.length})
         </h2>
@@ -66,7 +66,7 @@ const FavoritesView: React.FC<FavoritesViewProps> = ({ onViewDetails }) => {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {favorites.map((fav) => (
-            <Card key={fav.idMeal} className="border border-gray-200 bg-white animate-pulse">
+            <Card key={fav.idMeal} className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 animate-pulse">
               <div className="h-56 bg-gray-200" />
               <CardContent className="p-4">
                 <div className="h-6 bg-gray-200 rounded w-3/4 mb-2" />

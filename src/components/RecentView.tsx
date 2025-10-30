@@ -43,11 +43,11 @@ const RecentView: React.FC<RecentViewProps> = ({ onViewDetails }) => {
 
   if (recent.length === 0) {
     return (
-      <Card className="border-0 shadow-lg bg-white/90">
+      <Card className="border-0 shadow-lg bg-white/90 dark:bg-gray-900/80">
         <CardContent className="flex flex-col items-center justify-center h-96 text-center space-y-4">
-          <Clock className="h-20 w-20 text-gray-300" />
-          <h3 className="text-2xl font-semibold text-gray-700">No Recent Recipes</h3>
-          <p className="text-gray-500 max-w-md">
+          <Clock className="h-20 w-20 text-gray-300 dark:text-gray-500" />
+          <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">No Recent Recipes</h3>
+          <p className="text-gray-500 dark:text-gray-400 max-w-md">
             View some recipes and they'll appear here for quick access!
           </p>
         </CardContent>
@@ -58,7 +58,7 @@ const RecentView: React.FC<RecentViewProps> = ({ onViewDetails }) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
           <Clock className="h-7 w-7 text-orange-500" />
           Recently Viewed ({recent.length})
         </h2>
@@ -70,7 +70,7 @@ const RecentView: React.FC<RecentViewProps> = ({ onViewDetails }) => {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recent.map((rec) => (
-            <Card key={rec.idMeal} className="border border-gray-200 bg-white animate-pulse">
+            <Card key={rec.idMeal} className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 animate-pulse">
               <div className="h-56 bg-gray-200" />
               <CardContent className="p-4">
                 <div className="h-6 bg-gray-200 rounded w-3/4 mb-2" />

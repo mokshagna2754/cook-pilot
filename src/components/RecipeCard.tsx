@@ -38,8 +38,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ meal, onViewDetails }) => {
   };
 
   return (
-    <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 bg-white">
-      <div className="relative h-56 overflow-hidden bg-gray-100">
+    <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+      <div className="relative h-56 overflow-hidden bg-gray-100 dark:bg-gray-700">
         <img
           src={meal.strMealThumb}
           alt={meal.strMeal}
@@ -49,7 +49,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ meal, onViewDetails }) => {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-        <Badge className="absolute top-3 right-3 bg-white/95 text-gray-900 hover:bg-white shadow-md">
+        <Badge className="absolute top-3 right-3 bg-white/95 dark:bg-gray-900/90 text-gray-900 dark:text-gray-100 hover:bg-white dark:hover:bg-gray-900 shadow-md">
           {meal.strCategory}
         </Badge>
         <Button
@@ -58,7 +58,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ meal, onViewDetails }) => {
           className={`absolute top-3 left-3 h-10 w-10 rounded-full shadow-md ${
             favorited
               ? 'bg-red-500 hover:bg-red-600 text-white'
-              : 'bg-white/90 hover:bg-white text-gray-700'
+              : 'bg-white/90 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900 text-gray-700 dark:text-gray-200'
           }`}
           onClick={handleToggleFavorite}
         >
@@ -70,7 +70,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ meal, onViewDetails }) => {
         <CardTitle className="text-lg font-semibold line-clamp-2 group-hover:text-orange-600 transition-colors h-14">
           {meal.strMeal}
         </CardTitle>
-        <div className="flex items-center gap-1 text-sm text-gray-500 mt-2">
+        <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 mt-2">
           <MapPin className="h-4 w-4" />
           {meal.strArea}
         </div>
