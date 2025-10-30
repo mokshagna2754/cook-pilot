@@ -361,10 +361,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                 <Maximize2 className="h-4 w-4" />
               </Button>
 
-              {/* Close */}
-              <Button variant="ghost" size="sm" onClick={onClose}>
-                <X className="h-4 w-4" />
-              </Button>
+              {/* Close button removed to avoid duplicate with dialog close control */}
             </div>
           </div>
 

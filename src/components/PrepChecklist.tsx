@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Utensils, CheckCircle2 } from 'lucide-react';
+import { Utensils, CheckCircle2, RotateCcw } from 'lucide-react';
 import { PrepIngredient, scaleMeasure } from '@/utils/cookingSteps';
 
 interface PrepChecklistProps {
@@ -26,17 +26,37 @@ const PrepChecklist: React.FC<PrepChecklistProps> = ({
     }));
   };
 
-  const allPrepared = ingredients.every((ing) => prepared[ing.name]);
+  const allPrepared = ingredients.length > 0 && ingredients.every((ing) => prepared[ing.name]);
+
+  const handleSelectAll = () => {
+    const next: Record<string, boolean> = {};
+    for (const ing of ingredients) next[ing.name] = true;
+    setPrepared(next);
+  };
+
+  const handleClearAll = () => {
+    setPrepared({});
+  };
 
   return (
     <div className="space-y-6">
-      <Card className="bg-gradient-to-br from-orange-50 to-red-50 border-orange-200">
-        <CardHeader>
+      <Card className="bg-gradient-to-br from-orange-50 to-red-50 border-orange-200 dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 dark:border-gray-700">
+        <CardHeader className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <CardTitle className="flex items-center gap-2 text-2xl">
             <Utensils className="h-6 w-6 text-orange-500" />
-            Prepare All Ingredients First
+            <span className="dark:text-gray-100">Prepare All Ingredients First</span>
           </CardTitle>
-          <p className="text-gray-600 mt-2">
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={handleSelectAll} className="border-orange-300 hover:bg-orange-50 dark:border-orange-500 dark:text-orange-200 dark:hover:bg-orange-900/20">
+              <CheckCircle2 className="h-4 w-4 mr-2" />
+              Select All
+            </Button>
+            <Button variant="ghost" size="sm" onClick={handleClearAll} className="text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
+              <RotateCcw className="h-4 w-4 mr-2" />
+              Clear
+            </Button>
+          </div>
+          <p className="text-gray-600 mt-2 dark:text-gray-300">
             Check off each ingredient as you prepare it. This ensures smooth cooking!
           </p>
         </CardHeader>
@@ -51,8 +71,8 @@ const PrepChecklist: React.FC<PrepChecklistProps> = ({
                   key={ingredient.name}
                   className={`flex items-start gap-3 p-4 rounded-lg border-2 transition-all ${
                     isPrepared
-                      ? 'bg-green-50 border-green-300'
-                      : 'bg-white border-gray-200 hover:border-orange-300'
+                      ? 'bg-green-50 border-green-300 dark:bg-green-900/30 dark:border-green-600'
+                      : 'bg-white border-gray-200 hover:border-orange-300 dark:bg-gray-700 dark:border-gray-600 hover:dark:border-orange-400'
                   }`}
                 >
                   <Checkbox
@@ -62,13 +82,13 @@ const PrepChecklist: React.FC<PrepChecklistProps> = ({
                   />
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <strong className="text-gray-800">{ingredient.name}</strong>
+                      <strong className="text-gray-800 dark:text-gray-100">{ingredient.name}</strong>
                       {isPrepared && (
                         <CheckCircle2 className="h-4 w-4 text-green-500" />
                       )}
                     </div>
                     {scaledMeasure && (
-                      <span className="text-sm text-gray-600 ml-1">
+                      <span className="text-sm text-gray-600 ml-1 dark:text-gray-300">
                         {scaledMeasure}
                         {scaleFactor !== 1 && (
                           <Badge variant="outline" className="ml-2 text-xs">
@@ -87,7 +107,7 @@ const PrepChecklist: React.FC<PrepChecklistProps> = ({
             <Button
               onClick={onComplete}
               disabled={!allPrepared}
-              className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white h-12 text-lg"
+              className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white h-12 text-lg disabled:opacity-60"
               size="lg"
             >
               {allPrepared ? (
