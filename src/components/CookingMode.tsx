@@ -308,23 +308,23 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
             
             <div className="flex items-center gap-2">
               {/* Scale Factor */}
-              <div className="flex items-center gap-1 border rounded-lg px-2 py-1">
+              <div className="flex items-center gap-1 border rounded-lg px-2 py-1 dark:border-gray-600">
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setScaleFactor(Math.max(0.5, scaleFactor - 0.5))}
-                  className="h-7 w-7 p-0"
+                  className="h-7 w-7 p-0 text-gray-700 dark:text-white"
                 >
                   -
                 </Button>
-                <span className={`text-sm px-2 min-w-[3rem] text-center ${darkMode ? 'text-white' : 'text-gray-700'}`}>
+                <span className={`text-sm px-2 min-w-[3rem] text-center font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                   {scaleFactor}x
                 </span>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setScaleFactor(Math.min(3, scaleFactor + 0.5))}
-                  className="h-7 w-7 p-0"
+                  className="h-7 w-7 p-0 text-gray-700 dark:text-white"
                 >
                   +
                 </Button>
@@ -339,6 +339,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                   if (isVoiceEnabled) stopVoice();
                   else if (currentStep) speakText(currentStep.instruction);
                 }}
+                className="text-gray-700 dark:text-white"
               >
                 {isVoiceEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
               </Button>
@@ -348,6 +349,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                 variant="ghost"
                 size="sm"
                 onClick={() => setDarkMode(!darkMode)}
+                className="text-gray-700 dark:text-white"
               >
                 {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </Button>
@@ -357,6 +359,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                 variant="ghost"
                 size="sm"
                 onClick={() => setLargeText(!largeText)}
+                className="text-gray-700 dark:text-white"
               >
                 <Maximize2 className="h-4 w-4" />
               </Button>
