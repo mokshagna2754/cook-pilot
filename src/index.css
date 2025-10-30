@@ -37,12 +37,6 @@ All colors MUST be HSL.
     --ring: 195 85% 45%;
 
     --radius: 0.75rem;
-    
-    /* Earthquake depth colors - shallow to deep */
-    --quake-shallow: 45 100% 60%;
-    --quake-medium: 25 90% 55%;
-    --quake-deep: 195 85% 45%;
-    --quake-very-deep: 220 70% 35%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -114,4 +108,108 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Professional map styling */
+.map-container {
+  width: 100%;
+  height: 600px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* 3D Globe styling */
+.globe-container {
+  width: 100%;
+  height: 600px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+/* Prevent map tiling */
+.leaflet-map-pane {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+.leaflet-tile-container {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+.leaflet-tile-pane {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+.leaflet-tile {
+  width: 256px !important;
+  height: 256px !important;
+}
+
+/* Custom map controls */
+.leaflet-control-zoom {
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.leaflet-control-zoom a {
+  background: white !important;
+  border: none !important;
+  color: #374151 !important;
+  font-weight: 600 !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #f3f4f6 !important;
+}
+
+/* Ensure map tiles load properly */
+.leaflet-tile-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.leaflet-tile {
+  width: 256px !important;
+  height: 256px !important;
+  opacity: 1 !important;
+}
+
+/* Debug map container */
+.leaflet-container {
+  background: #f8fafc !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Force map visibility */
+.leaflet-map-pane {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.leaflet-tile-pane {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Custom earthquake marker styles */
+.custom-earthquake-marker {
+  background: transparent !important;
 }
