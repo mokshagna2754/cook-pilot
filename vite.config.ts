@@ -15,7 +15,5 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  optimizeDeps: {
-    include: ['leaflet', 'react-leaflet', '@react-leaflet/core'],
-  },
+  optimizeDeps: {},
 }));
