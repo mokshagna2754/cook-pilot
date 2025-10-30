@@ -56,7 +56,10 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
   const [scaleFactor, setScaleFactor] = useState(1);
   const [isPaused, setIsPaused] = useState(false);
   const [isVoiceEnabled, setIsVoiceEnabled] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+  // Mirror global theme on <html> to avoid mismatch with page theme
+  const [isDark, setIsDark] = useState<boolean>(() =>
+    typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
+  );
   const [largeText, setLargeText] = useState(false);
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -66,6 +69,31 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  // Keep in sync with global root class
+  useEffect(() => {
+    const check = () => setIsDark(document.documentElement.classList.contains('dark'));
+    // run once and when storage changes from other parts
+    check();
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === 'color-scheme') check();
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
+  const toggleDarkMode = () => {
+    const root = document.documentElement;
+    const next = !root.classList.contains('dark');
+    if (next) {
+      root.classList.add('dark');
+      window.localStorage.setItem('color-scheme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      window.localStorage.setItem('color-scheme', 'light');
+    }
+    setIsDark(next);
+  };
 
   // Load session on mount
   useEffect(() => {
@@ -264,10 +292,10 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
 
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
-      <DialogContent className={`max-w-6xl max-h-[95vh] overflow-hidden p-0 ${darkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
-        <div className={`flex flex-col h-[95vh] ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
+      <DialogContent className={`max-w-6xl max-h-[95vh] overflow-hidden p-0 ${isDark ? 'dark bg-gray-900' : 'bg-white'}`}>
+        <div className={`flex flex-col h-[95vh] ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
           {/* Header */}
-          <div className={`flex items-center justify-between p-4 border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+          <div className={`flex items-center justify-between p-4 border-b ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
             <div className="flex items-center gap-3">
               {/* Back Button */}
               <Button
@@ -277,11 +305,11 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                 className="rounded-full mr-2 hover:bg-gray-200 dark:hover:bg-gray-700"
                 aria-label="Back"
               >
-                <ArrowLeft className={`h-5 w-5 ${darkMode ? 'text-gray-100' : 'text-gray-700'}`} />
+                <ArrowLeft className={`h-5 w-5 ${isDark ? 'text-gray-100' : 'text-gray-700'}`} />
               </Button>
               <ChefHat className={`h-6 w-6 ${darkMode ? 'text-orange-400' : 'text-orange-500'}`} />
               <div>
-                <h2 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+                <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-800'}`}>
                   {recipe.strMeal}
                 </h2>
                 <div className="flex items-center gap-2 mt-1">
@@ -317,7 +345,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                 >
                   -
                 </Button>
-                <span className={`text-sm px-2 min-w-[3rem] text-center font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                <span className={`text-sm px-2 min-w-[3rem] text-center font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   {scaleFactor}x
                 </span>
                 <Button
@@ -348,10 +376,10 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setDarkMode(!darkMode)}
+                onClick={toggleDarkMode}
                 className="text-gray-700 dark:text-white"
               >
-                {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </Button>
 
               {/* Large Text */}
@@ -370,17 +398,17 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
 
           {/* Stats Bar */}
           {prepCompleted && (
-            <div className={`flex items-center justify-between px-4 py-2 border-b ${darkMode ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-gray-50'}`}>
+            <div className={`flex items-center justify-between px-4 py-2 border-b ${isDark ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-gray-50'}`}>
               <div className="flex items-center gap-4 text-sm">
                 <div className="flex items-center gap-1">
                   <Timer className="h-4 w-4" />
-                  <span className={darkMode ? 'text-gray-300' : 'text-gray-600'}>
+                  <span className={isDark ? 'text-gray-300' : 'text-gray-600'}>
                     {formatTime(elapsedTime)}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Target className="h-4 w-4" />
-                  <span className={darkMode ? 'text-gray-300' : 'text-gray-600'}>
+                  <span className={isDark ? 'text-gray-300' : 'text-gray-600'}>
                     {completedSteps}/{steps.length} steps
                   </span>
                 </div>
@@ -417,11 +445,11 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
               currentStep && (
                 <div className="max-w-4xl mx-auto space-y-6">
                   {/* Current Step */}
-                  <Card className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}>
+              <Card className={`${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}>
                     <CardContent className="p-6 space-y-6">
                       {/* Step Instruction */}
                       <div className="text-center space-y-4">
-                        <div className={`font-bold ${largeText ? 'text-4xl' : 'text-3xl'} ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+                        <div className={`font-bold ${largeText ? 'text-4xl' : 'text-3xl'} ${isDark ? 'text-white' : 'text-gray-800'}`}>
                           {currentStep.instruction}
                         </div>
                         
@@ -496,7 +524,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                           placeholder="Add a note for this step..."
                           value={notes[currentStep.id] || ''}
                           onChange={(e) => handleNoteChange(currentStep.id, e.target.value)}
-                          className={darkMode ? 'bg-gray-700 border-gray-600 text-white' : ''}
+                          className={isDark ? 'bg-gray-700 border-gray-600 text-white' : ''}
                         />
                       </div>
 
@@ -533,7 +561,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                     </Button>
 
                     <div className="text-center">
-                      <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                         Progress
                       </div>
                       <div className="w-64 bg-gray-200 rounded-full h-2 mt-1">
@@ -563,7 +591,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                   </div>
 
                   {/* Steps Overview */}
-                  <Card className={`${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50'}`}>
+                  <Card className={`${isDark ? 'bg-gray-800 border-gray-700' : 'bg-gray-50'}`}>
                     <CardContent className="p-4">
                       <div className="flex flex-wrap gap-2">
                         {steps.map((step, idx) => (
