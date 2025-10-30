@@ -292,12 +292,12 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
 
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
-      <DialogContent className={`max-w-6xl max-h-[95vh] overflow-hidden p-0 ${isDark ? 'dark bg-gray-900' : 'bg-white'}`}>
+      <DialogContent className={`w-screen h-[100dvh] sm:max-w-6xl sm:max-h-[95vh] overflow-hidden p-0 rounded-none sm:rounded-lg ${isDark ? 'dark bg-gray-900' : 'bg-white'}`}>
         <DialogTitle className="sr-only">Cooking Mode</DialogTitle>
         <DialogDescription className="sr-only">Guided cooking steps, timers, and notes</DialogDescription>
-        <div className={`flex flex-col h-[95vh] ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+        <div className={`flex flex-col h-[100dvh] sm:h-[95vh] ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
           {/* Header */}
-          <div className={`flex items-center justify-between p-4 border-b ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+          <div className={`flex items-center justify-between p-3 sm:p-4 border-b ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
             <div className="flex items-center gap-3">
               {/* Back Button */}
               <Button
@@ -311,7 +311,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
               </Button>
               <ChefHat className={`h-6 w-6 ${isDark ? 'text-orange-400' : 'text-orange-500'}`} />
               <div>
-                <h2 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-gray-800'}`}>
+                <h2 className={`text-lg sm:text-xl font-bold ${isDark ? 'text-white' : 'text-gray-800'}`}>
                   {recipe.strMeal}
                 </h2>
                 <div className="flex items-center gap-2 mt-1">
@@ -436,7 +436,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
           )}
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6">
             {!prepCompleted ? (
               <PrepChecklist
                 ingredients={prepIngredients}
@@ -445,7 +445,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
               />
             ) : (
               currentStep && (
-                <div className="max-w-4xl mx-auto space-y-6">
+                <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
                   {/* Current Step */}
               <Card className={`${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}>
                     <CardContent className="p-6 space-y-6">
@@ -551,12 +551,13 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                   </Card>
 
                   {/* Navigation */}
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
                     <Button
                       onClick={handlePreviousStep}
                       disabled={currentStepIndex === 0}
                       variant="outline"
                       size="lg"
+                      className="w-full sm:w-auto"
                     >
                       <ArrowLeft className="h-5 w-5 mr-2" />
                       Previous
@@ -579,6 +580,7 @@ const CookingMode: React.FC<CookingModeProps> = ({ recipe, isOpen, onClose }) =>
                       disabled={isPaused}
                       className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white"
                       size="lg"
+                      className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white"
                     >
                       {currentStepIndex === steps.length - 1 ? (
                         <>
