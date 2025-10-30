@@ -121,3 +121,18 @@ All colors MUST be HSL.
 }
 
 /* Removed old Leaflet and 3D globe styles (unused) */
+
+/* Force high-contrast text in light mode (day mode) */
+:root:not(.dark) .text-gray-500,
+:root:not(.dark) .text-gray-600,
+:root:not(.dark) .text-gray-700,
+:root:not(.dark) .text-gray-800 {
+  color: #0a0a0a !important; /* render as black in day mode */
+}
+
+:root:not(.dark) .dark\:text-gray-100,
+:root:not(.dark) .dark\:text-gray-200,
+:root:not(.dark) .dark\:text-gray-300,
+:root:not(.dark) .dark\:text-white {
+  color: #0a0a0a !important; /* ensure dark-only text classes don’t dim in day mode */
+}
