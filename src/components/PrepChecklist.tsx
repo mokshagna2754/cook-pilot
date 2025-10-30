@@ -56,7 +56,7 @@ const PrepChecklist: React.FC<PrepChecklistProps> = ({
               Clear
             </Button>
           </div>
-          <p className="text-gray-600 mt-2 dark:text-gray-300">
+          <p className="text-gray-600 mt-2 dark:text-gray-200">
             Check off each ingredient as you prepare it. This ensures smooth cooking!
           </p>
         </CardHeader>
@@ -88,7 +88,7 @@ const PrepChecklist: React.FC<PrepChecklistProps> = ({
                       )}
                     </div>
                     {scaledMeasure && (
-                      <span className="text-sm text-gray-600 ml-1 dark:text-gray-300">
+                      <span className="text-sm text-gray-600 ml-1 dark:text-gray-200">
                         {scaledMeasure}
                         {scaleFactor !== 1 && (
                           <Badge variant="outline" className="ml-2 text-xs">
