@@ -230,8 +230,7 @@ export const getAllCategories = async (): Promise<string[]> => {
     }
     
     const data = await response.json();
-    const list: string[] = data.meals?.map((cat: { strCategory: string }) => (cat.strCategory || '').trim()).filter(Boolean) || [];
-    return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b));
+    return data.meals?.map((cat: { strCategory: string }) => cat.strCategory) || [];
   } catch (error) {
     console.error('Error fetching categories:', error);
     throw error;
@@ -300,8 +299,7 @@ export const getAllAreas = async (): Promise<string[]> => {
     }
     
     const data = await response.json();
-    const list: string[] = data.meals?.map((area: { strArea: string }) => (area.strArea || '').trim()).filter(Boolean) || [];
-    return Array.from(new Set(list)).sort((a, b) => a.localeCompare(b));
+    return data.meals?.map((area: { strArea: string }) => area.strArea) || [];
   } catch (error) {
     console.error('Error fetching areas:', error);
     throw error;

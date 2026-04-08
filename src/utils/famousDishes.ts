@@ -435,19 +435,12 @@ export const FAMOUS_DISHES_BY_CITY: Record<string, string[]> = {
 
 // Get all famous dishes as a flat array for search
 export const getAllFamousDishes = (): string[] => {
-  const all = Object.values(FAMOUS_DISHES_BY_CITY).flat();
-  // Deduplicate and normalize spacing/casing, then sort alphabetically
-  const normalized = all.map(s => s.trim()).filter(Boolean);
-  const unique = Array.from(new Set(normalized));
-  return unique.sort((a, b) => a.localeCompare(b));
+  return Object.values(FAMOUS_DISHES_BY_CITY).flat();
 };
 
 // Get dishes for a specific city
 export const getDishesByCity = (city: string): string[] => {
-  const list = FAMOUS_DISHES_BY_CITY[city] || [];
-  const normalized = list.map(s => s.trim()).filter(Boolean);
-  const unique = Array.from(new Set(normalized));
-  return unique.sort((a, b) => a.localeCompare(b));
+  return FAMOUS_DISHES_BY_CITY[city] || [];
 };
 
 // Search dishes by name
@@ -462,5 +455,5 @@ export const searchDishes = (query: string): string[] => {
 
 // Get all cities
 export const getAllCities = (): string[] => {
-  return Object.keys(FAMOUS_DISHES_BY_CITY).sort((a, b) => a.localeCompare(b));
+  return Object.keys(FAMOUS_DISHES_BY_CITY);
 };

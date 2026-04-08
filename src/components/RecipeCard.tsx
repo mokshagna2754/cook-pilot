@@ -37,26 +37,12 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ meal, onViewDetails }) => {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      onViewDetails(meal.idMeal);
-    }
-  };
-
   return (
-    <Card
-      tabIndex={0}
-      role="button"
-      onKeyDown={handleKeyDown}
-      onClick={() => onViewDetails(meal.idMeal)}
-      className="group hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
-    >
+    <Card className="group hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       <div className="relative h-56 overflow-hidden bg-gray-100 dark:bg-gray-700">
         <img
           src={meal.strMealThumb}
           alt={meal.strMeal}
-          loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           onError={(e) => {
             (e.target as HTMLImageElement).style.display = 'none';

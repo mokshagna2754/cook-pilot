@@ -62,7 +62,7 @@ const CookingTimer: React.FC<CookingTimerProps> = ({
   const isComplete = remaining === 0;
 
   return (
-    <div className="flex flex-col items-center gap-4" role="timer" aria-live="polite">
+    <div className="flex flex-col items-center gap-4">
       {/* Circular Progress Timer */}
       <div className="relative w-48 h-48 flex items-center justify-center">
         <svg className="w-48 h-48 transform -rotate-90">
@@ -90,15 +90,14 @@ const CookingTimer: React.FC<CookingTimerProps> = ({
             }`}
           />
         </svg>
-          <div className="absolute inset-0 flex items-center justify-center flex-col">
-            <div className={`text-4xl font-bold ${isComplete ? 'text-green-500' : remaining < 10 ? 'text-red-500' : 'text-gray-800'}`}>
-              {formatTime(remaining)}
-            </div>
-            {paused && (
-              <div className="text-sm text-gray-500 mt-1">Paused</div>
-            )}
-            <div className="sr-only" aria-live="polite">{isComplete ? 'Timer complete' : `${formatTime(remaining)} remaining`}</div>
+        <div className="absolute inset-0 flex items-center justify-center flex-col">
+          <div className={`text-4xl font-bold ${isComplete ? 'text-green-500' : remaining < 10 ? 'text-red-500' : 'text-gray-800'}`}>
+            {formatTime(remaining)}
           </div>
+          {paused && (
+            <div className="text-sm text-gray-500 mt-1">Paused</div>
+          )}
+        </div>
       </div>
 
       {/* Timer Controls */}
